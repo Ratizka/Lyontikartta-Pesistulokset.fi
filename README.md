@@ -26,7 +26,7 @@ Asenna R-kirjastot tidyverse ja ggforce
 
 Muuta aluksi otteluntiedot.py tiedostopolut haluamaasi kohteeseen.
 
-Sen jälkeen mene (https://www.pesistulokset.fi) ja klikkaa haluamaasi ottelu auki. Ottelun id löytyy (https://www.pesistulokset.fi/ottelut/58626) ottelut/id kohdalta.
+Sen jälkeen mene (https://www.pesistulokset.fi) ja klikkaa haluamaasi ottelu auki. Ottelun id löytyy (https://www.pesistulokset.fi/ottelut/58626) ottelut/kohdalta.
 
 Suorita pesistuloksetotteluntiedot.py ja anna komentokehotteessa id. Esimerkiksi 58626, jonka jälkeen hakee pesistulokset.fi API:sta tiedot.
 
