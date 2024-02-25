@@ -19,6 +19,7 @@ Asenna R-Studio osoitteesta (https://posit.co/download/rstudio-desktop/)
 Asenna R-kirjastot tidyverse ja ggforce
 
 `install.packages("tidyverse")`
+
 `install.packages("ggforce")`
 
 # Käyttö
