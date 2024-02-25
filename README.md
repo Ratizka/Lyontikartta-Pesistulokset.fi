@@ -2,9 +2,9 @@
 
 Hakee pesistulokset.fi ottelun tiedot ja piirtää lyöntikartan R-kielellä
 
-# Vaatimukset
+## Vaatimukset
 
-Asenna Python osoitteesta (https://www.python.org/downloads/) 
+Asenna Python osoitteesta (https://www.python.org/downloads/)
 
 Asenna requests ja pandas kirjastot käyttäen komentokehotetta:
 
@@ -22,7 +22,7 @@ Asenna R-kirjastot tidyverse ja ggforce
 
 `install.packages("ggforce")`
 
-# Käyttö
+## Käyttö
 
 Muuta aluksi otteluntiedot.py tiedostopolut haluamaasi kohteeseen.
 
@@ -38,12 +38,12 @@ Seuraavaksi avaa R-tiedosto R-studiolla ja valitse hakemisto, jossa ottelusta te
 
 Sitten voit piirtää eri tilanteet käyttämällä eri funktioita. Joukkuefunktiot ottavat parametrinä kuvaajan otsikon. Pelaajien ottaa sen lisäksi pelaajan id, joka löytyy pelaajan sivulta esimerkiksi (https://www.pesistulokset.fi/pelaaja/8440).
 
-# Tietoa
+## Tietoa
 
-Vaihdot ovat merkitty niiden lopputulosten mukaan, eikä erottele kärki tai kärjentakana tapahtuvia vaihtoja. Tilanteissa kuten 1-2 jne. tilanteessa ovat todennäköisesti kärjenvaihtoja. Aivan varmaksi ei voi sanoa, kun on mahdollisesti virheitä taulukon muodostamisessa. Osa tilanteista ei liity lyöntisuoritukseen, mutta tulevat samalla, kun siivoaa events listaa json-tiedostosta. 
+Vaihdot ovat merkitty niiden lopputulosten mukaan, eikä erottele kärki tai kärjentakana tapahtuvia vaihtoja. Tilanteissa kuten 1-2 jne. tilanteessa ovat todennäköisesti kärjenvaihtoja. Aivan varmaksi ei voi sanoa, kun on mahdollisesti virheitä taulukon muodostamisessa. Osa tilanteista ei liity lyöntisuoritukseen, mutta tulevat samalla, kun siivoaa events listaa json-tiedostosta.
 
-Lisäämällä kuvaajissa `filter(hit.batter_player_id == {{id}}), hit.hit_numeber == {{lyöntinumero}}` saa eri piiretty joko ensimmäisen, toisen tai kolmannen lyöntikartan. Period, inning ja batTurn saa vaihdettua jakson, vuoroparin tai aloittava ja lopettavan vuoroparin välillä. Ei sisällytä kotiutuslyöntikilpailua karttoihin. Kotiutuslyöntikilpailun saa mukaan `period != 3` poistamalla tuon kohdan. 
+Lisäämällä kuvaajissa `filter(hit.batter_player_id == {{id}}, hit.hit_numeber == {{lyöntinumero}})` saa eri piiretty joko ensimmäisen, toisen tai kolmannen lyöntikartan. Period, inning ja batTurn saa vaihdettua jakson, vuoroparin tai aloittava ja lopettavan vuoroparin välillä. Ei sisällytä kotiutuslyöntikilpailua karttoihin. Kotiutuslyöntikilpailun saa mukaan `period != 3` poistamalla tuon kohdan.
 
-# Lopuksi
+## Lopuksi
 
-Jos on ongelmia, laittakaa Issues pyyntöä. Korjaan mahdolliset ongelmat, jos pystyn. Kehitysehdotukset voi laittaa Pull Requests kohdalle, jonka jälkeen laitan käytäntöön. Kehitysehdotuksia voi laittaa erityisesti datan_muokkaus funktioon. Kesken ottelun toimivat koodit tulevat jossain vaiheessa, kun saan kirjoittua R-koodin. 
+Jos on ongelmia, laittakaa Issues pyyntöä. Korjaan mahdolliset ongelmat, jos pystyn. Kehitysehdotukset voi laittaa Pull Requests kohdalle, jonka jälkeen laitan käytäntöön. Kehitysehdotuksia voi laittaa erityisesti datan_muokkaus funktioon. Kesken ottelun toimivat koodit tulevat jossain vaiheessa, kun saan kirjoittua R-koodin.
