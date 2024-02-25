@@ -46,4 +46,4 @@ Lisäämällä kuvaajissa `filter(hit.batter_player_id == {{id}}), hit.hit_numeb
 
 # Lopuksi
 
-Jos on ongelmia, laittakaa Issues pyyntöä. Korjaan mahdolliset ongelmat, jos pystyn. Kehitysehdotukset voi laitta Pull Requests kohdalle, jonka jälkeen laitan käytäntöön. Kehitysehdotuksia voi laittaa erityisesti datan_muokkaus funktioon. Kesken ottelun toimivat koodit tulevat jossain vaiheessa, kun saan kirjoittua R-koodin. 
+Jos on ongelmia, laittakaa Issues pyyntöä. Korjaan mahdolliset ongelmat, jos pystyn. Kehitysehdotukset voi laittaa Pull Requests kohdalle, jonka jälkeen laitan käytäntöön. Kehitysehdotuksia voi laittaa erityisesti datan_muokkaus funktioon. Kesken ottelun toimivat koodit tulevat jossain vaiheessa, kun saan kirjoittua R-koodin. 
