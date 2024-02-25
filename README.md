@@ -42,7 +42,7 @@ Sitten voit piirtää eri tilanteet käyttämällä eri funktioita. Joukkuefunkt
 
 Vaihdot ovat merkitty niiden lopputulosten mukaan, eikä erottele kärki tai kärjentakana tapahtuvia vaihtoja. Tilanteissa kuten 1-2 jne. tilanteessa ovat todennäköisesti kärjenvaihtoja. Aivan varmaksi ei voi sanoa, kun on mahdollisesti virheitä taulukon muodostamisessa. Osa tilanteista ei liity lyöntisuoritukseen, mutta tulevat samalla, kun siivoaa events listaa json-tiedostosta.
 
-Lisäämällä kuvaajissa `filter(hit.batter_player_id == {{id}}, hit.hit_numeber == {{lyöntinumero}})` saa eri piiretty joko ensimmäisen, toisen tai kolmannen lyöntikartan. Period, inning ja batTurn saa vaihdettua jakson, vuoroparin tai aloittava ja lopettavan vuoroparin välillä. Ei sisällytä kotiutuslyöntikilpailua karttoihin. Kotiutuslyöntikilpailun saa mukaan `period != 3` poistamalla tuon kohdan.
+Lisäämällä kuvaajissa `filter(hit.batter_player_id == {{id}}, hit.hit_numeber == {{lyöntinumero}})` saa piiretty joko ensimmäisen, toisen tai kolmannen lyönnin lyöntikartan. Period, inning ja batTurn saa vaihdettua jakson, vuoroparin tai aloittava ja lopettavan vuoroparin välillä. Ei sisällytä kotiutuslyöntikilpailua karttoihin. Kotiutuslyöntikilpailun saa mukaan `period != 3` poistamalla tuon kohdan.
 
 ## Lopuksi
 
