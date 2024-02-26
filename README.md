@@ -44,6 +44,8 @@ Vaihdot ovat merkitty niiden lopputulosten mukaan, eikä erottele kärki tai kä
 
 Lisäämällä kuvaajissa `filter(hit.batter_player_id == {{id}}, hit.hit_numeber == {{lyöntinumero}})` saa piiretty joko ensimmäisen, toisen tai kolmannen lyönnin lyöntikartan. Period, inning ja batTurn saa vaihdettua jakson, vuoroparin tai aloittava ja lopettavan vuoroparin välillä. Ei sisällytä kotiutuslyöntikilpailua karttoihin. Kotiutuslyöntikilpailun saa mukaan `period != 3` poistamalla tuon kohdan.
 
+Kirjausohjelman dokumentointi löytyy [linkki](https://docs.google.com/document/d/1fxeVdm7g9F1dQ3o3n5QWrRvtDppo1BuLj0SJgn5FSlE/). Sieltä löytyy lisää tietoa, miten lyönnit kirjataan ja muuta vastaavaa.
+
 ## Lopuksi
 
 Jos on ongelmia, laittakaa Issues pyyntöä. Korjaan mahdolliset ongelmat, jos pystyn. Kehitysehdotukset voi laittaa Pull Requests kohdalle, jonka jälkeen laitan käytäntöön. Kehitysehdotuksia voi laittaa erityisesti datan_muokkaus funktioon. Kesken ottelun toimivat koodit tulevat jossain vaiheessa, kun saan kirjoittua R-koodin.
