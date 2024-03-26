@@ -1,53 +1,55 @@
 library(tidyverse)
 library(ggforce)
 
-luoliitonkenttä <- function () {
+luoliitonkenttä <- function() {
   ggplot() +
-    
-    #3-pesä ja 2-pesä
-    geom_arc(aes(x0 = 2, y0 = 44.5, start = 0, end = pi / 1, r = 3 )) + #3-pesä
-    geom_arc(aes(x0 = 40, y0 = 44.5, start = -pi / 1, end = 0, r = 3 )) + #2-pesä
-    
+
+    # 3-pesä ja 2-pesä
+    geom_arc(aes(x0 = 2, y0 = 44.5, start = 0, end = pi / 1, r = 3)) + # 3-pesä
+    geom_arc(aes(x0 = 38, y0 = 44.5, start = -pi / 1, end = 0, r = 3)) + # 2-pesä
+
     # 1-pesä
-    geom_arc(aes(x0 = 10, y0 = 24.5, start = -pi/5, end = pi/3, r = 3 )) + #1-pesä
-    
-    #Takaraja
-    geom_line(aes(x = c(2, 40), y = c(96, 96))) + #Takaraja
-    
-    #3-jatke ja 2-jatke
-    geom_line(aes(x = c(2, 2), y = c(29, 96))) + #3 pitkä viiva/sivuraja
-    geom_line(aes(x = c(40, 40), y = c(38, 96)))  + # 2 pitkä viiva
-    
+    geom_arc(aes(x0 = 10.5, y0 = 25, start = -pi / 5, end = pi / 3, r = 3)) + # 1-pesä
+
+    # Takaraja
+    geom_line(aes(x = c(2, 38), y = c(96, 96))) + # Takaraja
+
+    # 3-jatke ja 2-jatke
+    geom_line(aes(x = c(2, 2), y = c(29, 96))) + # 3 pitkä viiva/sivuraja
+    geom_line(aes(x = c(38, 38), y = c(38, 96))) + # 2 pitkä viiva
+
     # 3-pesän ja 2-pesän viivat
-    geom_line(aes(x = c(-5,2), y = c(41.5, 41.5))) + #3 viiva 
-    geom_line(aes(x = c(40,47), y = c(41.5, 41.5))) + #2 viiva 
-    
+    geom_line(aes(x = c(-5, 2), y = c(41.5, 41.5))) + # 3 viiva
+    geom_line(aes(x = c(38, 45), y = c(41.5, 41.5))) + # 2 viiva
+
     # 1-2 juoksuviiva
-    geom_line(aes(x = c(6,37.5), y = c(21.5,43)), lineend = 'round')  + # 1-2 juoksuviiva
-    
+    geom_line(aes(x = c(7, 35.5), y = c(22, 43)), lineend = "round") + # 1-2 juoksuviiva
+
     # 2-3 juoksuviiva
-    geom_line(aes(x = c(5, 37), y = c(44.5,44.5)))  + # 2-3 juoksuviiva
-    
+    geom_line(aes(x = c(5, 35), y = c(44.5, 44.5))) + # 2-3 juoksuviiva
+
     # 3-raja ja 2-raja
-    geom_line(aes(x = c(20, 2), y = c(6,38)),lineend = 'round') + # 3-raja
-    geom_line(aes(x = c(22, 40), y = c(6,38))) + # 2-raja
-    
+    geom_line(aes(x = c(20, 2), y = c(10, 38)), lineend = "round") + # 3-raja
+    geom_line(aes(x = c(22, 38), y = c(10, 38))) + # 2-raja
+
     # kotijuoksuviiva
-    geom_line(aes(x = c(15, 2), y = c(6,29)))  + 
-    
+    geom_line(aes(x = c(15, 2), y = c(10, 29))) +
+
     # kotipesäviiva
-    geom_line(aes(x = c(14, 28), y = c(6,6))) +
-    
-    #kotipesän kaaret
-    geom_arc(aes(x0 = 21, y0 = 6, start = -pi/2, end = -pi/1, r = 5 )) + #sisempikaari 1/4
-    geom_arc(aes(x0 = 21, y0 = 6, start = pi/1, end = pi/2, r = 5 )) + #sisempikaari 1/4
-    geom_arc(aes(x0 = 21, y0 = 6, start = pi/1, end = pi/2, r = 7 )) +  #ulompikaari 1/4
-    geom_arc(aes(x0 = 21, y0 = 6, start = pi/-1, end = pi/-2, r = 7 )) +  #ulompikaari 1/4
-    
-    #Muut
-    coord_fixed() + geom_smooth(se = F) + theme_void()
-  
-  # Kenttä on neljä metriä kapeampi
+    geom_line(aes(x = c(14, 28), y = c(10, 10))) +
+
+    # kotipesän kaaret
+    geom_arc(aes(x0 = 21, y0 = 10, start = -pi / 2, end = -pi / 1, r = 5)) + # sisempikaari 1/4
+    geom_arc(aes(x0 = 21, y0 = 10, start = pi / 1, end = pi / 2, r = 5)) + # sisempikaari 1/4
+    geom_arc(aes(x0 = 21, y0 = 10, start = pi / 1, end = pi / 2, r = 7)) + # ulompikaari 1/4
+    geom_arc(aes(x0 = 21, y0 = 10, start = pi / -1, end = pi / -2, r = 7)) + # ulompikaari 1/4
+
+    geom_arc(aes(x0 = 21, y0 = 10, start = -pi / 3, end = pi / 3, r = 2)) + # etukaari
+
+    # Muut
+    coord_fixed() +
+    geom_smooth(se = T) +
+    theme_void()
 }
 
 #-----------------Ottelun tiedot------------------------------------------------
