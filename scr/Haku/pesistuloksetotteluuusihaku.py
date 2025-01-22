@@ -140,11 +140,11 @@ def main():
     lisatallennus(yhdistaminen, ottelunid)
     
     while True:
-        suoritaUudestaan = input(
+        suorita_uudestaan = input(
             "Suorita ohjelma uudestaan kyllä/ei (k/e): ")
-        if suoritaUudestaan.lower() == "k":
+        if suorita_uudestaan.lower() == "k":
             main()
-        if suoritaUudestaan.lower() == "e":
+        if suorita_uudestaan.lower() == "e":
             print("Ohjelma suljetaan")
             sys.exit(1)
         else:
