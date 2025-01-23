@@ -54,8 +54,25 @@ def muokattu_data(data):
     walkscore_to_key = {
         3: "juoksu",
     }
+
     wtscore_to_key = {
         3: "harhaheittojuoksu",
+    }
+
+    karpanen_to_key = {
+        "paloi kärpäsenä": "karpanen",
+    }
+
+    vapaataival_to_key = {
+        "sai vapaataipaleen väärien syöttöjen johdosta": "vapaataival",
+    }
+
+    estaminen_to_key = {
+        "sai vapaataipaleen ulkopelaajan estäessä": "estäminen",
+    }
+
+    homerun_to_key = {
+        2: "kunnari",
     }
 
     data_json = []
@@ -63,16 +80,18 @@ def muokattu_data(data):
     for i in eventsdata:
         row = {}
         for j in i["events"]:
-            for text in j["texts"]:
-                if isinstance(text, dict):
+            for k in j["texts"]:
+                if isinstance(k, dict):
 
-                    pointhits = text.get("pointhits")
-                    out = text.get("out")
-                    pointhitf = text.get("pointhitf")
-                    score = text.get("score")
-                    walkscore = text.get("walkscore")
-                    wtscore = text.get("wtscore")
-                    tailhits = text.get("tailhits")
+                    pointhits = k.get("pointhits")
+                    out = k.get("out")
+                    pointhitf = k.get("pointhitf")
+                    score = k.get("score")
+                    walkscore = k.get("walkscore")
+                    homerun = k.get("homerun")
+                    wtscore = k.get("wtscore")
+                    tailhits = k.get("tailhits")
+                    text = k.get("text")
 
                     if pointhits in pointhits_to_key:
                         row[pointhits_to_key[pointhits]] = 1
@@ -88,9 +107,17 @@ def muokattu_data(data):
                         row[wtscore_to_key[wtscore]] = 1
                     if tailhits in tailhits_to_key:
                         row[tailhits_to_key[tailhits]] = 1
+                    if text in karpanen_to_key:
+                        row[karpanen_to_key[text]] = 1
+                    if text in vapaataival_to_key:
+                        row[vapaataival_to_key[text]] = 1
+                    if text in estaminen_to_key:
+                        row[estaminen_to_key[text]] = 1
+                    if homerun in homerun_to_key:
+                        row[homerun_to_key[homerun]] = 1
 
-                    if "hit" in text:
-                        row["hit"] = text.get("hit")
+                    if "hit" in k:
+                        row["hit"] = k.get("hit")
                         row["lyoja"] = j.get("runnersAtBases")[0]
                         row["ykkospesa"] = j.get("runnersAtBases")[1]
                         row["kakkospesa"] = j.get("runnersAtBases")[2]
@@ -118,7 +145,7 @@ def lisatallennus(data, polku):
     df_data = pd.DataFrame(data)
 
     df_data.to_csv(f"d:/Users/1060/Documents/{polku}lisa.csv")
-    
+
     print("tallennuonnistui")
 
 
@@ -138,7 +165,7 @@ def main():
     yhdistaminen = yhdistys(data_perus, data_lisa)
 
     lisatallennus(yhdistaminen, ottelunid)
-    
+
     while True:
         suorita_uudestaan = input(
             "Suorita ohjelma uudestaan kyllä/ei (k/e): ")
@@ -149,7 +176,6 @@ def main():
             sys.exit(1)
         else:
             print('Painoit väärää kirjainta')
-    
 
 
 main()
