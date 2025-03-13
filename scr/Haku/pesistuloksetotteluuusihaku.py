@@ -18,7 +18,9 @@ def perusdata(data):
 
     normalisoitu_data = pd.json_normalize(events_data)
 
-    return normalisoitu_data
+    df_normalisoitu_data = pd.DataFrame(normalisoitu_data)
+
+    return df_normalisoitu_data
 
 
 def muokattu_data(data):
@@ -79,6 +81,7 @@ def muokattu_data(data):
 
     for i in eventsdata:
         row = {}
+        row['id'] = i.get('id')
         for j in i["events"]:
             for k in j["texts"]:
                 if isinstance(k, dict):
@@ -133,18 +136,21 @@ def muokattu_data(data):
 
     norm_data = pd.json_normalize(data_json)
 
-    return norm_data
+    df_norm_data = pd.DataFrame(norm_data)
+
+    return df_norm_data
 
 
 def yhdistys(dataperus, lisadata):
-    data = dataperus.join(lisadata, on="hit.id", lsuffix="", rsuffix="testi")
+    data = dataperus.join(lisadata, on='id', how='left',
+                          lsuffix="", rsuffix="_")
     return data
 
 
 def lisatallennus(data, polku):
     df_data = pd.DataFrame(data)
 
-    df_data.to_csv(f"d:/Users/1060/Documents/{polku}lisa.csv")
+    df_data.to_csv(f"d:/Users/1060/Documents/{polku}.csv", index=False)
 
     print("tallennuonnistui")
 
