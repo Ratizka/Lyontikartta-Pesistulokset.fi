@@ -1,6 +1,7 @@
 import sys
-import requests
+
 import pandas as pd
+import requests
 
 
 def hae_data(url):
