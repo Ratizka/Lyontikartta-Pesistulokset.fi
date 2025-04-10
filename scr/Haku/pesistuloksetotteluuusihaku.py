@@ -1,12 +1,21 @@
 import sys
-
 import pandas as pd
+import numpy as np
 import requests
 
 
 def hae_data(url):
+    """
+    Funktio hakee tiedot rajapinnasta. Katkaisee yhteyden 60 sekunnin kuluttua.
+
+    Args:
+        url (string): ottelun rajapinnan url
+
+    Returns:
+        json: Palauttaa json-tiedot
+    """
     try:
-        vastaus = requests.get(url, timeout=240)
+        vastaus = requests.get(url, timeout=60)
         vastaus.raise_for_status()
         return vastaus.json()
     except requests.RequestException as e:
@@ -14,7 +23,15 @@ def hae_data(url):
         sys.exit(1)
 
 
-def perusdata(data):
+def perus_data(data):
+    """
+    Funktio saa json tiedot ja muokkaa ne taulukko muotoon
+    Args:
+        data (json): ottelun json data
+
+    Returns:
+        DataFrame: palauttaa taulukon json datasta
+    """
     events_data = data["events"]
 
     normalisoitu_data = pd.json_normalize(events_data)
@@ -24,7 +41,16 @@ def perusdata(data):
     return df_normalisoitu_data
 
 
-def muokattu_data(data):
+def lisa_data(data):
+    """
+    Funktio saa json tiedot ja silmukoiden avulla hakee tiedot listaan, josta tekee taulukon
+    ja palauttaa sen
+    Args:
+        data (json): _description_
+
+    Returns:
+        DataFrame: palauttaa taulukon json datasta
+    """
     eventsdata = data["events"]
 
     pointhits_to_key = {
@@ -143,21 +169,86 @@ def muokattu_data(data):
 
 
 def yhdistys(dataperus, lisadata):
-    data = dataperus.join(lisadata, on='id', how='left',
-                          lsuffix="", rsuffix="_")
+    """
+    Funktio yhdistää argumentti saadut taulukot
+
+    Args:
+        dataperus (Dataframe): Funktion perusdata taulukko
+        lisadata (Dataframe): Funktion lisa_data taulukko
+
+    Returns:
+        Dataframe: data taulukon
+    """
+    data = dataperus.merge(lisadata, on='id', how='left', suffixes=("", "_"))
+    
+    data['lahtotilanne'] =  np.where(data['lyoja'].isna() & data['ykkospesa'].isna() & data['kakkospesa'].isna() & data['kolmospesa'].isna(),
+                                    '', 
+                            np.where(data['ykkospesa'].isna() & data['kakkospesa'].isna() & data['kolmospesa'].isna(),
+                                    '0',
+                            np.where(data['ykkospesa'].notna() & data['kakkospesa'].isna() & data['kolmospesa'].isna(),
+                                    '1',
+                            np.where(data['ykkospesa'].notna() & data['kakkospesa'].notna() & data['kolmospesa'].isna(),
+                                    '1-2', 
+                            np.where(data['ykkospesa'].isna() & data['kakkospesa'].notna() & data['kolmospesa'].isna(),
+                                    '0-2',
+                            np.where(data['ykkospesa'].isna() & data['kakkospesa'].isna() & data['kolmospesa'].notna(),
+                                    '0-3',
+                            np.where(data['ykkospesa'].notna() & data['kakkospesa'].isna() & data['kolmospesa'].notna(),
+                                    '1-3',
+                            np.where(data['ykkospesa'].isna() & data['kakkospesa'].notna() & data['kolmospesa'].notna(),
+                                    '2-3', 
+                            np.where(data['ykkospesa'].notna() & data['kakkospesa'].notna() & data['kolmospesa'].notna(),
+                                     'ajo', '')
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+    
+    data['lopputilanne'] =  np.where(data['ykkospesajalkeen'].isna() & data['kakkospesajalkeen'].isna() & data['kolmospesajalkeen'].isna(),
+                                    '0',
+                            np.where(data['ykkospesajalkeen'].notna() & data['kakkospesajalkeen'].isna() & data['kolmospesajalkeen'].isna(),
+                                    '1',
+                            np.where(data['ykkospesajalkeen'].notna() & data['kakkospesajalkeen'].notna() & data['kolmospesajalkeen'].isna(),
+                                    '1-2', 
+                            np.where(data['ykkospesajalkeen'].isna() & data['kakkospesajalkeen'].notna() & data['kolmospesajalkeen'].isna(),
+                                    '0-2',
+                            np.where(data['ykkospesajalkeen'].isna() & data['kakkospesajalkeen'].isna() & data['kolmospesajalkeen'].notna(),
+                                    '0-3',
+                            np.where(data['ykkospesajalkeen'].notna() & data['kakkospesajalkeen'].isna() & data['kolmospesajalkeen'].notna(),
+                                    '1-3',
+                            np.where(data['ykkospesajalkeen'].isna() & data['kakkospesajalkeen'].notna() & data['kolmospesajalkeen'].notna(),
+                                    '2-3', 
+                            np.where(data['ykkospesajalkeen'].notna() & data['kakkospesajalkeen'].notna() & data['kolmospesajalkeen'].notna(),
+                                    'ajo', '')
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
     return data
 
 
-def lisatallennus(data, polku):
-    df_data = pd.DataFrame(data)
+def tallennus(data, tiedostonimi):
+    """
 
-    df_data.to_csv(f"d:/Users/1060/Documents/{polku}.csv", index=False)
+    Funktio saa taulukon ja tallentaa sen csv-tiedostoon
 
-    print("tallennuonnistui")
+    Args:
+        data (Dataframe): Taulukko
+        tiedostonimi (string): csv-tiedoston nimi
+    """
+    data.to_csv(f"d:/Users/1060/Documents/{tiedostonimi}.csv", index=False)
+
+    print("Tallennus onnistui!")
 
 
 def main():
-
     ottelunid = input("Anna ottelun id: ")
 
     url = (
@@ -165,13 +256,13 @@ def main():
 
     json_data = hae_data(url)
 
-    data_perus = perusdata(json_data)
+    data_perus = perus_data(json_data)
 
-    data_lisa = muokattu_data(json_data)
+    data_lisa = lisa_data(json_data)
 
     yhdistaminen = yhdistys(data_perus, data_lisa)
 
-    lisatallennus(yhdistaminen, ottelunid)
+    tallennus(yhdistaminen, ottelunid)
 
     while True:
         suorita_uudestaan = input(
